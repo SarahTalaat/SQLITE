@@ -54,13 +54,31 @@ class MoviesTableViewController: UITableViewController , CommunicationDelegate{
 
         let movie = moviesArray[indexPath.row]
 
+//        if let imageUrl = URL(string: movie.image) {
+//            cell.imageView?.sd_setImage(with: imageUrl , placeholderImage: UIImage(named: "loading.png") , completed: { (image, error, cacheType, url) in
+//                if let image = image {
+//                    cell.imageView?.layer.cornerRadius = cell.imageView!.frame.width / 2
+//                    cell.imageView?.clipsToBounds = true
+//                    cell.imageView?.image = image
+//
+//                } else {
+//                    print("Can't make the image circular")
+//                }
+//            })
+//        } else {
+//            print("Can't load image from the internet")
+//        }
+        
         if let imageUrl = URL(string: movie.image) {
-            cell.imageView?.sd_setImage(with: imageUrl , completed: { (image, error, cacheType, url) in
-                // Apply corner radius to make the image circular
+            // Load image using SDWebImage
+            cell.imageView?.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "loading.png"), completed: { (image, error, cacheType, url) in
                 if let image = image {
+                    // Apply corner radius to make the image circular
                     cell.imageView?.layer.cornerRadius = cell.imageView!.frame.width / 2
                     cell.imageView?.clipsToBounds = true
-                    cell.imageView?.image = image
+                    
+                    // Create a circular image view using the loaded image with Kingfisher
+                    cell.imageView?.kf.setImage(with: url, placeholder: image)
                 } else {
                     print("Can't make the image circular")
                 }
@@ -69,6 +87,9 @@ class MoviesTableViewController: UITableViewController , CommunicationDelegate{
             print("Can't load image from the internet")
         }
     
+        
+        
+
         
         cell.textLabel?.text = movie.title;
         
@@ -182,3 +203,4 @@ class MoviesTableViewController: UITableViewController , CommunicationDelegate{
          print("Error loading image: \(error)")
      }
  */
+
