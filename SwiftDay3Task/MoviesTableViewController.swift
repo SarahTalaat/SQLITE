@@ -24,6 +24,8 @@ class MoviesTableViewController: UITableViewController , CommunicationDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        tableView.register(UINib(nibName: "CustomTableViewCell", bundle: nil), forCellReuseIdentifier: "customCell")
+     
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -47,31 +49,17 @@ class MoviesTableViewController: UITableViewController , CommunicationDelegate{
         return moviesArray.count
     }
 
+
     
+    
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+
 
         let movie = moviesArray[indexPath.row]
 
-//        if let imageUrl = URL(string: movie.image) {
-//            cell.imageView?.sd_setImage(with: imageUrl , placeholderImage: UIImage(named: "loading.png") , completed: { (image, error, cacheType, url) in
-//                if let image = image {
-//                    cell.imageView?.layer.cornerRadius = cell.imageView!.frame.width / 2
-//                    cell.imageView?.clipsToBounds = true
-//                    cell.imageView?.image = image
-//
-//                } else {
-//                    print("Can't make the image circular")
-//                }
-//            })
-//        } else {
-//            print("Can't load image from the internet")
-//        }
-        
-        
-        
-        
         // Apply corner radius to make the image circular
         if let imageUrl = URL(string: movie.image) {
             // Load image using Kingfisher
@@ -84,30 +72,67 @@ class MoviesTableViewController: UITableViewController , CommunicationDelegate{
                         cell.imageView?.frame.size.height = 50
                         cell.imageView?.layer.cornerRadius = cell.imageView!.frame.width / 2
                         cell.imageView?.clipsToBounds = true
-                
-                      
+
+
                     } else {
                         print("Can't make the image circular")
                     }
-                
+
             })
 
         } else {
             print("Can't load image from the internet")
         }
-        
+
         cell.imageView?.contentMode = .scaleToFill
         cell.imageView?.frame.size.width = 50
         cell.imageView?.frame.size.height = 50
         cell.imageView?.layer.cornerRadius = 25 // half of 50
         cell.imageView?.clipsToBounds = true
         cell.textLabel?.text = movie.title;
-        
+
 
 
         return cell
     }
     
+
+//    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        guard let cell = tableView.dequeueReusableCell(withIdentifier: "customCell", for: indexPath) as? CustomTableViewCell else {
+//            fatalError("Failed to dequeue CustomTableViewCell.")
+//        }
+//
+//        let movie = moviesArray[indexPath.row]
+//
+////         Apply corner radius to make the image circular
+//               if let imageUrl = URL(string: movie.image) {
+//                   // Load image using Kingfisher
+//                   cell.customImage.kf.setImage(with: imageUrl, placeholder: UIImage(named: "loading.png") , completionHandler: {
+//                       (image, error, cacheType, url) in
+//                           if let image = image {
+//                               cell.customImage.contentMode = .scaleAspectFill
+//                               cell.customImage.image = image
+//                               cell.customImage.layer.cornerRadius = cell.customImage.frame.width / 2
+//                               cell.customImage.clipsToBounds = true
+//
+//
+//                           } else {
+//                               print("Can't make the image circular")
+//                           }
+//
+//                   })
+//
+//               } else {
+//                   print("Can't load image from the internet")
+//               }
+//
+//        cell.customImage.layer.cornerRadius = cell.customImage.frame.width / 2
+//        cell.customImage.clipsToBounds = true
+//        cell.customLabel.text = movie.title
+//
+//        return cell
+//    }
+
     
     @IBAction func addMovieButton(_ sender: Any) {
         performSegue(withIdentifier: "inputScreen", sender: nil)
