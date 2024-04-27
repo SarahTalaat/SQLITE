@@ -69,26 +69,28 @@ class MoviesTableViewController: UITableViewController , CommunicationDelegate{
 //            print("Can't load image from the internet")
 //        }
         
+        
+        
+        
+        // Apply corner radius to make the image circular
         if let imageUrl = URL(string: movie.image) {
-            // Load image using SDWebImage
-            cell.imageView?.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "loading.png"), completed: { (image, error, cacheType, url) in
-                if let image = image {
-                    // Apply corner radius to make the image circular
-                    cell.imageView?.layer.cornerRadius = cell.imageView!.frame.width / 2
-                    cell.imageView?.clipsToBounds = true
-                    
-                    // Create a circular image view using the loaded image with Kingfisher
-                    cell.imageView?.kf.setImage(with: url, placeholder: image)
-                } else {
-                    print("Can't make the image circular")
-                }
+            // Load image using Kingfisher
+            cell.imageView?.kf.setImage(with: imageUrl, placeholder: UIImage(named: "loading.png") , completionHandler: {
+                (image, error, cacheType, url) in
+                    if let image = image {
+                        cell.imageView?.layer.cornerRadius = cell.imageView!.frame.width / 2
+                        cell.imageView?.clipsToBounds = true
+                        cell.imageView?.image = image
+    
+                    } else {
+                        print("Can't make the image circular")
+                    }
+                
             })
+
         } else {
             print("Can't load image from the internet")
         }
-    
-        
-        
 
         
         cell.textLabel?.text = movie.title;
@@ -107,6 +109,7 @@ class MoviesTableViewController: UITableViewController , CommunicationDelegate{
     
     func addDataModel(dataModel:DataModel){
         moviesArray.append(dataModel)
+      //  tableView.reloadData()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

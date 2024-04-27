@@ -29,20 +29,23 @@ class DisplayDetailsViewController: UIViewController {
         ratingView.settings.fillMode = .full
         ratingView.isUserInteractionEnabled = false
 
-        if let imageUrl = URL(string: selectedMovie?.image ?? "") {
-            imageDetails.sd_setImage(with: imageUrl, completed: { (image, error, cacheType, url) in
-                // Apply corner radius to make the image circular
-                if let image = image {
-                    self.imageDetails.layer.cornerRadius = self.imageDetails.frame.width / 2
-                    self.imageDetails.clipsToBounds = true
-                    self.imageDetails.image = image
-                } else {
-                    print("Can't make the image circular")
-                }
-            })
+    
+        
+        if let imageUrlString = selectedMovie?.image, let imageUrl = URL(string: imageUrlString) {
+            imageDetails.kf.indicatorType = .activity
+            imageDetails.kf.setImage(with: URL(string: imageUrlString), placeholder: UIImage(named: "loading.png"),options: [.transition(.fade(0.7))], progressBlock: nil)
+            // Make the image view circular after image is loaded
+            self.imageDetails.layer.cornerRadius = self.imageDetails.frame.width / 2
+            self.imageDetails.clipsToBounds = true
+/*
+ _buttonACUI.layer.cornerRadius = 40;
+ _buttonACUI.clipsToBounds = YES;
+ */
+          
         } else {
-            print("Can't load image from the internet")
+            print("No valid image URL found")
         }
+        
 
 
 
@@ -60,3 +63,4 @@ class DisplayDetailsViewController: UIViewController {
     */
 
 }
+

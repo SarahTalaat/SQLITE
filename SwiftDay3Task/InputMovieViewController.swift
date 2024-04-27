@@ -56,6 +56,7 @@ class InputMovieViewController: UIViewController  {
 
             var dataModel : DataModel = DataModel(title:title_input ?? "", image: image_input ?? "", rating: rating_input ?? 0.0 , year: year_input , genere: genreArray )
             delegate?.addDataModel(dataModel: dataModel)
+        
             navigationController?.popViewController(animated: true)
             
             print(title_input)
