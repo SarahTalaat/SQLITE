@@ -78,10 +78,14 @@ class MoviesTableViewController: UITableViewController , CommunicationDelegate{
             cell.imageView?.kf.setImage(with: imageUrl, placeholder: UIImage(named: "loading.png") , completionHandler: {
                 (image, error, cacheType, url) in
                     if let image = image {
+                        cell.imageView?.contentMode = .scaleAspectFill
+                        cell.imageView?.image = image
+                        cell.imageView?.frame.size.width = 50
+                        cell.imageView?.frame.size.height = 50
                         cell.imageView?.layer.cornerRadius = cell.imageView!.frame.width / 2
                         cell.imageView?.clipsToBounds = true
-                        cell.imageView?.image = image
-    
+                
+                      
                     } else {
                         print("Can't make the image circular")
                     }
@@ -91,8 +95,12 @@ class MoviesTableViewController: UITableViewController , CommunicationDelegate{
         } else {
             print("Can't load image from the internet")
         }
-
         
+        cell.imageView?.contentMode = .scaleToFill
+        cell.imageView?.frame.size.width = 50
+        cell.imageView?.frame.size.height = 50
+        cell.imageView?.layer.cornerRadius = 25 // half of 50
+        cell.imageView?.clipsToBounds = true
         cell.textLabel?.text = movie.title;
         
 
@@ -134,7 +142,6 @@ class MoviesTableViewController: UITableViewController , CommunicationDelegate{
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "detailSegue", sender: nil)
     }
-
 
     
     /*

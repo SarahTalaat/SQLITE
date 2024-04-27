@@ -24,6 +24,8 @@
 		B688FF932BDA6E4A008F6800 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B688FF922BDA6E4A008F6800 /* DataModel.swift */; };
 		B688FF952BDA6E5B008F6800 /* CommunicationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B688FF942BDA6E5B008F6800 /* CommunicationDelegate.swift */; };
 		B68FEB902BDC787A0005B87B /* UIImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B68FEB8F2BDC787A0005B87B /* UIImageViewExtension.swift */; };
+		B68FEB932BDCA7050005B87B /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B68FEB912BDCA7050005B87B /* CustomTableViewCell.swift */; };
+		B68FEB942BDCA7050005B87B /* CustomTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B68FEB922BDCA7050005B87B /* CustomTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +69,8 @@
 		B688FF922BDA6E4A008F6800 /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		B688FF942BDA6E5B008F6800 /* CommunicationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunicationDelegate.swift; sourceTree = "<group>"; };
 		B68FEB8F2BDC787A0005B87B /* UIImageViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExtension.swift; sourceTree = "<group>"; };
+		B68FEB912BDCA7050005B87B /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
+		B68FEB922BDCA7050005B87B /* CustomTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomTableViewCell.xib; sourceTree = "<group>"; };
 		D78FE0C63D504AD6C32E1CDF /* Pods-SwiftDay3Task.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftDay3Task.debug.xcconfig"; path = "Target Support Files/Pods-SwiftDay3Task/Pods-SwiftDay3Task.debug.xcconfig"; sourceTree = "<group>"; };
 		DBAA0393937B9EB4BCD8A528 /* Pods-SwiftDay3Task.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftDay3Task.release.xcconfig"; path = "Target Support Files/Pods-SwiftDay3Task/Pods-SwiftDay3Task.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -145,6 +149,8 @@
 				B688FF922BDA6E4A008F6800 /* DataModel.swift */,
 				B688FF942BDA6E5B008F6800 /* CommunicationDelegate.swift */,
 				B68FEB8F2BDC787A0005B87B /* UIImageViewExtension.swift */,
+				B68FEB912BDCA7050005B87B /* CustomTableViewCell.swift */,
+				B68FEB922BDCA7050005B87B /* CustomTableViewCell.xib */,
 			);
 			path = SwiftDay3Task;
 			sourceTree = "<group>";
@@ -287,6 +293,7 @@
 			files = (
 				B688FF672BDA69DB008F6800 /* LaunchScreen.storyboard in Resources */,
 				B688FF642BDA69DB008F6800 /* Assets.xcassets in Resources */,
+				B68FEB942BDCA7050005B87B /* CustomTableViewCell.xib in Resources */,
 				B688FF622BDA69D6008F6800 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -399,6 +406,7 @@
 				B688FF5F2BDA69D6008F6800 /* ViewController.swift in Sources */,
 				B688FF5B2BDA69D6008F6800 /* AppDelegate.swift in Sources */,
 				B68FEB902BDC787A0005B87B /* UIImageViewExtension.swift in Sources */,
+				B68FEB932BDCA7050005B87B /* CustomTableViewCell.swift in Sources */,
 				B688FF912BDA6B66008F6800 /* DisplayDetailsViewController.swift in Sources */,
 				B688FF5D2BDA69D6008F6800 /* SceneDelegate.swift in Sources */,
 				B688FF952BDA6E5B008F6800 /* CommunicationDelegate.swift in Sources */,
