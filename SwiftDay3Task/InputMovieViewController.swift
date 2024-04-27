@@ -31,42 +31,91 @@ class InputMovieViewController: UIViewController  {
         
         
     }
-
+//
+//    @IBAction func doneButton(_ sender: Any) {
+//
+//        var title_input = titleValue.text
+//        var year_input = Int(yearValue.text ?? "0" ) ?? 0
+//        var genre_input = genreValue.text
+//        var rating_input = Float(ratingValue.text ?? "0.0") ?? 0.0
+//        var image_input = imageUrl.text
+//
+//        var genreArray:[String] = []
+//        if let genre = genre_input {
+//            genreArray.append(genre)
+//        }
+//        genreArray.joined(separator: " , ")
+//
+//
+//        if rating_input > 5 {
+//            // Rating exceeds 5, display an alert
+//            let alertController = UIAlertController(title: "Rating Limit Exceeded", message: "The maximum rating is 5.", preferredStyle: .alert)
+//            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+//            present(alertController, animated: true, completion: nil)
+//        } else {
+//
+//            var dataModel : DataModel = DataModel(title:title_input ?? "", image: image_input ?? "", rating: rating_input ?? 0.0 , year: year_input , genere: genreArray )
+//            delegate?.addDataModel(dataModel: dataModel)
+//
+//            navigationController?.popViewController(animated: true)
+//
+//            print(title_input)
+//            print(year_input)
+//            print(genre_input)
+//            print(rating_input)
+//            print(image_input)
+//
+//        }
+//
     @IBAction func doneButton(_ sender: Any) {
         
         var title_input = titleValue.text
-        var year_input = Int(yearValue.text ?? "0" ) ?? 0
+        var year_input = Int(yearValue.text ?? "") // Parse as Int
         var genre_input = genreValue.text
-        var rating_input = Float(ratingValue.text ?? "0.0") ?? 0.0
+        var rating_input = Float(ratingValue.text ?? "") // Parse as Float
         var image_input = imageUrl.text
         
-        var genreArray:[String] = []
+        // Check if year is a valid integer
+        guard let year = year_input else {
+            showAlert(title: "Invalid Year", message: "Please enter a valid year.")
+            return
+        }
+        
+        // Check if rating is a valid float and within the range 0 to 5
+        guard let rating = rating_input, rating >= 0 && rating <= 5 else {
+            showAlert(title: "Invalid Rating", message: "Please enter a valid rating between 0 and 5.")
+            return
+        }
+        
+        // Check if URL is valid
+        guard let imageUrlString = image_input, let _ = URL(string: imageUrlString) else {
+            showAlert(title: "Invalid URL", message: "Please enter a valid URL.")
+            return
+        }
+        
+        var genreArray: [String] = []
         if let genre = genre_input {
             genreArray.append(genre)
         }
         genreArray.joined(separator: " , ")
-    
         
-        if rating_input > 5 {
-            // Rating exceeds 5, display an alert
-            let alertController = UIAlertController(title: "Rating Limit Exceeded", message: "The maximum rating is 5.", preferredStyle: .alert)
-            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            present(alertController, animated: true, completion: nil)
-        } else {
+        var dataModel: DataModel = DataModel(title: title_input ?? "", image: image_input ?? "", rating: rating, year: year, genere: genreArray)
+        delegate?.addDataModel(dataModel: dataModel)
+        
+        navigationController?.popViewController(animated: true)
+        
+        print(title_input)
+        print(year)
+        print(genre_input)
+        print(rating)
+        print(image_input)
+    }
 
-            var dataModel : DataModel = DataModel(title:title_input ?? "", image: image_input ?? "", rating: rating_input ?? 0.0 , year: year_input , genere: genreArray )
-            delegate?.addDataModel(dataModel: dataModel)
-        
-            navigationController?.popViewController(animated: true)
-            
-            print(title_input)
-            print(year_input)
-            print(genre_input)
-            print(rating_input)
-            print(image_input)
-            
-        }
-        
+    func showAlert(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alertController, animated: true, completion: nil)
+    }
 
 
         
@@ -83,4 +132,5 @@ class InputMovieViewController: UIViewController  {
     }
     */
 
-}
+
+
