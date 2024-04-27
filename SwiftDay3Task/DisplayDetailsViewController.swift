@@ -34,13 +34,9 @@ class DisplayDetailsViewController: UIViewController {
         if let imageUrlString = selectedMovie?.image, let imageUrl = URL(string: imageUrlString) {
             imageDetails.kf.indicatorType = .activity
             imageDetails.kf.setImage(with: URL(string: imageUrlString), placeholder: UIImage(named: "loading.png"),options: [.transition(.fade(0.7))], progressBlock: nil)
-            // Make the image view circular after image is loaded
+            self.imageDetails.frame.size.width = self.imageDetails.frame.size.height
             self.imageDetails.layer.cornerRadius = self.imageDetails.frame.width / 2
             self.imageDetails.clipsToBounds = true
-/*
- _buttonACUI.layer.cornerRadius = 40;
- _buttonACUI.clipsToBounds = YES;
- */
           
         } else {
             print("No valid image URL found")
