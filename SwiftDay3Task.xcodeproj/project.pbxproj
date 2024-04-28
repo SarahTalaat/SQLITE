@@ -71,6 +71,7 @@
 		B68FEB8F2BDC787A0005B87B /* UIImageViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExtension.swift; sourceTree = "<group>"; };
 		B68FEB912BDCA7050005B87B /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 		B68FEB922BDCA7050005B87B /* CustomTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomTableViewCell.xib; sourceTree = "<group>"; };
+		B692C7662BDE553B0048A4A0 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		D78FE0C63D504AD6C32E1CDF /* Pods-SwiftDay3Task.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftDay3Task.debug.xcconfig"; path = "Target Support Files/Pods-SwiftDay3Task/Pods-SwiftDay3Task.debug.xcconfig"; sourceTree = "<group>"; };
 		DBAA0393937B9EB4BCD8A528 /* Pods-SwiftDay3Task.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftDay3Task.release.xcconfig"; path = "Target Support Files/Pods-SwiftDay3Task/Pods-SwiftDay3Task.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -105,6 +106,7 @@
 		0D45127CE5419717630DC0F0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B692C7662BDE553B0048A4A0 /* libsqlite3.tbd */,
 				93BF6BA2C208A34CE3946439 /* Pods_SwiftDay3Task.framework */,
 				2F3DF4B7BC63BD0EE7C374CB /* Pods_SwiftDay3Task_SwiftDay3TaskUITests.framework */,
 			);
