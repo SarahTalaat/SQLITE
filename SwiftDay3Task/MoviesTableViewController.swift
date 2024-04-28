@@ -9,8 +9,10 @@ import UIKit
 import Kingfisher
 import SDWebImage
 import Cosmos
+import SQLite3
 
-class MoviesTableViewController: UITableViewController , CommunicationDelegate{
+
+class MoviesTableViewController: UITableViewController{
 
     
     
@@ -18,7 +20,7 @@ class MoviesTableViewController: UITableViewController , CommunicationDelegate{
 
     
     override func viewWillAppear(_ animated: Bool) {
-        tableView.reloadData()
+        reloadData()
     }
 
     override func viewDidLoad() {
@@ -35,6 +37,9 @@ class MoviesTableViewController: UITableViewController , CommunicationDelegate{
         for i in 0 ..< moviesArray.count{
             print(moviesArray[i])
         }
+        
+        reloadData()
+        
     }
 
     // MARK: - Table view data source
@@ -51,6 +56,11 @@ class MoviesTableViewController: UITableViewController , CommunicationDelegate{
 
 
     
+    // Method to fetch data from the database and reload the table view
+    func reloadData() {
+        moviesArray = Database.sharedInstance().retrieveDataModels()
+        tableView.reloadData()
+    }
     
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -140,15 +150,15 @@ class MoviesTableViewController: UITableViewController , CommunicationDelegate{
     }
 
     
-    func addDataModel(dataModel:DataModel){
-        moviesArray.append(dataModel)
-      //  tableView.reloadData()
-    }
+//    func addDataModel(dataModel:DataModel){
+//        moviesArray.append(dataModel)
+//      //  tableView.reloadData()
+//    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "inputScreen" {
             if let inputVC = segue.destination as? InputMovieViewController {
-                inputVC.delegate = self
+              //  inputVC.delegate = self
             }
         }else if segue.identifier == "detailSegue" {
                 if let indexPath = tableView.indexPathForSelectedRow {

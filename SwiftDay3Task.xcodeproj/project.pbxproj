@@ -26,6 +26,7 @@
 		B68FEB902BDC787A0005B87B /* UIImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B68FEB8F2BDC787A0005B87B /* UIImageViewExtension.swift */; };
 		B68FEB932BDCA7050005B87B /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B68FEB912BDCA7050005B87B /* CustomTableViewCell.swift */; };
 		B68FEB942BDCA7050005B87B /* CustomTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B68FEB922BDCA7050005B87B /* CustomTableViewCell.xib */; };
+		B6D606EE2BDE73D800A648DA /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D606ED2BDE73D800A648DA /* Database.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +73,7 @@
 		B68FEB912BDCA7050005B87B /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 		B68FEB922BDCA7050005B87B /* CustomTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomTableViewCell.xib; sourceTree = "<group>"; };
 		B692C7662BDE553B0048A4A0 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		B6D606ED2BDE73D800A648DA /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		D78FE0C63D504AD6C32E1CDF /* Pods-SwiftDay3Task.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftDay3Task.debug.xcconfig"; path = "Target Support Files/Pods-SwiftDay3Task/Pods-SwiftDay3Task.debug.xcconfig"; sourceTree = "<group>"; };
 		DBAA0393937B9EB4BCD8A528 /* Pods-SwiftDay3Task.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftDay3Task.release.xcconfig"; path = "Target Support Files/Pods-SwiftDay3Task/Pods-SwiftDay3Task.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -153,6 +155,7 @@
 				B68FEB8F2BDC787A0005B87B /* UIImageViewExtension.swift */,
 				B68FEB912BDCA7050005B87B /* CustomTableViewCell.swift */,
 				B68FEB922BDCA7050005B87B /* CustomTableViewCell.xib */,
+				B6D606ED2BDE73D800A648DA /* Database.swift */,
 			);
 			path = SwiftDay3Task;
 			sourceTree = "<group>";
@@ -403,6 +406,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B688FF932BDA6E4A008F6800 /* DataModel.swift in Sources */,
+				B6D606EE2BDE73D800A648DA /* Database.swift in Sources */,
 				B688FF8D2BDA6B02008F6800 /* InputMovieViewController.swift in Sources */,
 				B688FF8B2BDA6AC5008F6800 /* MoviesTableViewController.swift in Sources */,
 				B688FF5F2BDA69D6008F6800 /* ViewController.swift in Sources */,

@@ -18,31 +18,21 @@ class InputMovieViewController: UIViewController  {
     @IBOutlet var yearValue: UITextField!
     @IBOutlet var titleValue: UITextField!
     
-    var delegate: CommunicationDelegate?
+   // var delegate: CommunicationDelegate?
 
 
-    static let shared = InputMovieViewController()
 
-    private var database: OpaquePointer?
 
-    private init() {
-        super.init(nibName: nil, bundle: nil)
-        database = openDatabase()
-        createTable(db:database)
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-
-        let db = openDatabase()
-        createTable(db: db)
+        
+        let db = Database.sharedInstance().openDatabase()
+        Database.sharedInstance().createTable(db: db)
+        
         
     }
     
@@ -79,7 +69,10 @@ class InputMovieViewController: UIViewController  {
         genreArray.joined(separator: " , ")
         
         var dataModel: DataModel = DataModel(title: title_input ?? "", image: image_input ?? "", rating: rating, year: year, genere: genreArray)
-        delegate?.addDataModel(dataModel: dataModel)
+       // delegate?.addDataModel(dataModel: dataModel)
+        Database.sharedInstance().insertDataModelInDb(dataModel: dataModel)
+    
+    //    insertDataModelInDb(dataModel: dataModel)
         
         navigationController?.popViewController(animated: true)
         
@@ -96,67 +89,6 @@ class InputMovieViewController: UIViewController  {
         present(alertController, animated: true, completion: nil)
     }
 
-//Open connection
-    func openDatabase() -> OpaquePointer? {
-        //el mofta7 el 72dr at3aml m3 el database b3d kda
-        var db: OpaquePointer?
-        let fileUrl = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("Friend.sqlite")
-        //1.path the file , reference on the opaque pointer
-        if sqlite3_open(fileUrl?.path, &db) == SQLITE_OK{
-            print("Successfully opened connection to database")
-            return db
-        }else{
-            print("Unable to open database")
-            return nil
-        }
-    }
-    
-    //Create database
-    func createTable(db:OpaquePointer?){
-        
-        let createTableString =
-        """
-       CREATE TABLE FRIEND(
-       Title CHAR(256) PRIMARY KEY NOT NULL ,
-       Genre CHAR(256) ,
-       Rating Int,
-       Year INT  );
-       """
-        //1.create a pointer to point to the next statement (as we will use it to excute this statement)
-        var createTableStatement: OpaquePointer?
-        
-        //2.Convert the statement to byte code to  execute the statement
-        //sqlite3_prepare_v2 : built in function to convert statement byte code and return statement code
-        //db:
-        //createTableString : This is the statement that we want to compile
-        //-1 : maximum lengnth that the sqlite ill read from the statement , -1 let it read full statement
-        //&createTableStatement : the pointer that will point to the compiled statement so that step 3 can use it
-        //nil : tail (we don't need to use it )
-        if sqlite3_prepare_v2(db, createTableString, -1, &createTableStatement, nil) == SQLITE_OK{
-            //3.if the sqlite can execute the compiled statement it will continue
-            if sqlite3_step(createTableStatement)==SQLITE_DONE{
-                print("\nFriend table createdd")
-            }else{
-                print("\nFriend table is not created")
-            }
-        }else{
-            // Check if the error is due to the table already existing
-            if sqlite3_errcode(db) == SQLITE_CONSTRAINT {
-                print("Table already exists")
-            
-            // Print an error message if the statement couldn't be compiled
-                  print("Error preparing create table statement: \(String(cString: sqlite3_errmsg(db)))")
-            } else {
-                print("Create table statement is not prepared")
-
-        }
-        //4.Built in method to avoid memory leak
-        sqlite3_finalize(createTableStatement)
-    }
-        
- 
-    
-    }
         
     /*
     // MARK: - Navigation
@@ -170,3 +102,5 @@ class InputMovieViewController: UIViewController  {
 
 
 
+
+}
