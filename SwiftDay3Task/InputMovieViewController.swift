@@ -50,6 +50,12 @@ class InputMovieViewController: UIViewController  {
             return
         }
         
+        // Check if the title already exists in the database
+        if Database.sharedInstance().checkTitleExists_PK(title: title_input ?? ""){
+            showAlert(title: "Title Exists", message: "The title already exists in the database.")
+            return
+        }
+        
         // Check if rating is a valid float and within the range 0 to 5
         guard let rating = rating_input, rating >= 0 && rating <= 5 else {
             showAlert(title: "Invalid Rating", message: "Please enter a valid rating between 0 and 5.")

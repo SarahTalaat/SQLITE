@@ -176,4 +176,75 @@ func insertDataModelInDb(dataModel: DataModel) {
         return dataModels
     }
 
+    func deleteDataModelFromDb(title: String) {
+        // Open connection to the database
+        guard let db = openDatabase() else {
+            print("Unable to open database")
+            return
+        }
+        
+        // Prepare the DELETE statement
+        let deleteStatementString = "DELETE FROM FRIEND WHERE Title = ?;"
+        var deleteStatement: OpaquePointer?
+        
+        if sqlite3_prepare_v2(db, deleteStatementString, -1, &deleteStatement, nil) == SQLITE_OK {
+            // Bind the value to the placeholder in the prepared statement
+            let titleNSString = title as NSString
+            sqlite3_bind_text(deleteStatement, 1, titleNSString.utf8String, -1, nil)
+            
+            // Execute the statement to delete the record from the table
+            if sqlite3_step(deleteStatement) == SQLITE_DONE {
+                print("DataModel deleted successfully.")
+            } else {
+                print("Failed to delete DataModel.")
+            }
+        } else {
+            print("Error preparing delete statement: \(String(cString: sqlite3_errmsg(db)))")
+        }
+        
+        // Finalize the prepared statement to avoid memory leaks
+        sqlite3_finalize(deleteStatement)
+        
+        // Close the database connection
+        sqlite3_close(db)
+    }
+
+    // Function to check if a title already exists in the FRIEND table
+    func checkTitleExists_PK(title: String) -> Bool {
+        // Open connection to the database
+        guard let db = openDatabase() else {
+            print("Unable to open database")
+            return false
+        }
+        
+        // Prepare the SELECT statement to check if the title exists
+        let query = "SELECT * FROM FRIEND WHERE Title = ?;"
+        var queryStatement: OpaquePointer?
+        
+        if sqlite3_prepare_v2(db, query, -1, &queryStatement, nil) == SQLITE_OK {
+            // Bind the title value to the prepared statement
+            sqlite3_bind_text(queryStatement, 1, title, -1, nil)
+            
+            // Execute the SELECT statement
+            if sqlite3_step(queryStatement) == SQLITE_ROW {
+                // If a row is returned, the title exists in the database
+                sqlite3_finalize(queryStatement)
+                sqlite3_close(db)
+                return true
+            }
+        } else {
+            print("Error preparing query statement: \(String(cString: sqlite3_errmsg(db)))")
+        }
+        
+        // Finalize the prepared statement to avoid memory leaks
+        sqlite3_finalize(queryStatement)
+        
+        // Close the database connection
+        sqlite3_close(db)
+        
+        // If no rows were returned, the title doesn't exist in the database
+        return false
+    }
+
+    
 }

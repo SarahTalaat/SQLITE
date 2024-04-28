@@ -177,6 +177,25 @@ class MoviesTableViewController: UITableViewController{
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "detailSegue", sender: nil)
     }
+    
+    
+    
+    // Inside MoviesTableViewController
+
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let deletedMovie = moviesArray[indexPath.row]
+            
+            // Delete the record from the database
+            Database.sharedInstance().deleteDataModelFromDb(title: deletedMovie.title)
+            
+            // Remove the deleted movie from the moviesArray
+            moviesArray.remove(at: indexPath.row)
+            
+            // Delete the corresponding row from the table view
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
 
     
     /*
