@@ -21,8 +21,20 @@ class InputMovieViewController: UIViewController  {
     var delegate: CommunicationDelegate?
 
 
-    
-    
+    static let shared = InputMovieViewController()
+
+    private var database: OpaquePointer?
+
+    private init() {
+        super.init(nibName: nil, bundle: nil)
+        database = openDatabase()
+        createTable(db:database)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,42 +45,7 @@ class InputMovieViewController: UIViewController  {
         createTable(db: db)
         
     }
-//
-//    @IBAction func doneButton(_ sender: Any) {
-//
-//        var title_input = titleValue.text
-//        var year_input = Int(yearValue.text ?? "0" ) ?? 0
-//        var genre_input = genreValue.text
-//        var rating_input = Float(ratingValue.text ?? "0.0") ?? 0.0
-//        var image_input = imageUrl.text
-//
-//        var genreArray:[String] = []
-//        if let genre = genre_input {
-//            genreArray.append(genre)
-//        }
-//        genreArray.joined(separator: " , ")
-//
-//
-//        if rating_input > 5 {
-//            // Rating exceeds 5, display an alert
-//            let alertController = UIAlertController(title: "Rating Limit Exceeded", message: "The maximum rating is 5.", preferredStyle: .alert)
-//            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-//            present(alertController, animated: true, completion: nil)
-//        } else {
-//
-//            var dataModel : DataModel = DataModel(title:title_input ?? "", image: image_input ?? "", rating: rating_input ?? 0.0 , year: year_input , genere: genreArray )
-//            delegate?.addDataModel(dataModel: dataModel)
-//
-//            navigationController?.popViewController(animated: true)
-//
-//            print(title_input)
-//            print(year_input)
-//            print(genre_input)
-//            print(rating_input)
-//            print(image_input)
-//
-//        }
-//
+    
     @IBAction func doneButton(_ sender: Any) {
         
         var title_input = titleValue.text
@@ -135,10 +112,15 @@ class InputMovieViewController: UIViewController  {
     }
     
     //Create database
-    func createTable(db:OpaquePointer){
+    func createTable(db:OpaquePointer?){
+        
         let createTableString =
         """
-       CREATE TABLE FRIEND(Title CHAR(256) PRIMARY KEY NOT NULL , Genre CHAR(256) ,Rating Int, Year INT  );
+       CREATE TABLE FRIEND(
+       Title CHAR(256) PRIMARY KEY NOT NULL ,
+       Genre CHAR(256) ,
+       Rating Int,
+       Year INT  );
        """
         //1.create a pointer to point to the next statement (as we will use it to excute this statement)
         var createTableStatement: OpaquePointer?
@@ -158,12 +140,22 @@ class InputMovieViewController: UIViewController  {
                 print("\nFriend table is not created")
             }
         }else{
-            print("Create table statement is not prepared")
+            // Check if the error is due to the table already existing
+            if sqlite3_errcode(db) == SQLITE_CONSTRAINT {
+                print("Table already exists")
+            
+            // Print an error message if the statement couldn't be compiled
+                  print("Error preparing create table statement: \(String(cString: sqlite3_errmsg(db)))")
+            } else {
+                print("Create table statement is not prepared")
+
         }
         //4.Built in method to avoid memory leak
         sqlite3_finalize(createTableStatement)
     }
         
+ 
+    
     }
         
     /*
