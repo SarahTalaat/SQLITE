@@ -44,6 +44,7 @@ class InputMovieViewController: UIViewController, UIImagePickerControllerDelegat
         picker.delegate = self
         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
             picker.sourceType = .photoLibrary
+            picker.allowsEditing = true
             self.present(picker, animated: true)
         }else{
             print("Can't open the photoLibrary")
@@ -52,7 +53,7 @@ class InputMovieViewController: UIViewController, UIImagePickerControllerDelegat
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else {
+        guard let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else {
             print("Unable to select image")
             self.dismiss(animated: true)
             return

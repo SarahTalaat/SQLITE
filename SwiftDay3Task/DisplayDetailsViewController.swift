@@ -28,8 +28,10 @@ class DisplayDetailsViewController: UIViewController {
         ratingView.rating = Double(selectedMovie?.rating ?? 0)
         ratingView.settings.fillMode = .full
         ratingView.isUserInteractionEnabled = false
-
-    
+        imageDetails.image = selectedMovie?.image
+        self.imageDetails.frame.size.width = self.imageDetails.frame.size.height
+        self.imageDetails.layer.cornerRadius = self.imageDetails.frame.width / 2
+        self.imageDetails.clipsToBounds = true
         
 //        if let imageUrlString = selectedMovie?.image, let imageUrl = URL(string: imageUrlString) {
 //            imageDetails.kf.indicatorType = .activity
