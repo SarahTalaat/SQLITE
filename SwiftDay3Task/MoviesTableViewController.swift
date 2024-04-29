@@ -70,30 +70,31 @@ class MoviesTableViewController: UITableViewController{
 
         let movie = moviesArray[indexPath.row]
 
-        // Apply corner radius to make the image circular
-        if let imageUrl = URL(string: movie.image) {
-            // Load image using Kingfisher
-            cell.imageView?.kf.setImage(with: imageUrl, placeholder: UIImage(named: "loading.png") , completionHandler: {
-                (image, error, cacheType, url) in
-                    if let image = image {
-                        cell.imageView?.contentMode = .scaleAspectFill
-                        cell.imageView?.image = image
-                        cell.imageView?.frame.size.width = 50
-                        cell.imageView?.frame.size.height = 50
-                        cell.imageView?.layer.cornerRadius = cell.imageView!.frame.width / 2
-                        cell.imageView?.clipsToBounds = true
-
-
-                    } else {
-                        print("Can't make the image circular")
-                    }
-
-            })
-
-        } else {
-            print("Can't load image from the internet")
-        }
-
+//        // Apply corner radius to make the image circular
+//        if let imageUrl = URL(string: movie.image) {
+//            // Load image using Kingfisher
+//            cell.imageView?.kf.setImage(with: imageUrl, placeholder: UIImage(named: "loading.png") , completionHandler: {
+//                (image, error, cacheType, url) in
+//                    if let image = image {
+//                        cell.imageView?.contentMode = .scaleAspectFill
+//                        cell.imageView?.image = image
+//                        cell.imageView?.frame.size.width = 50
+//                        cell.imageView?.frame.size.height = 50
+//                        cell.imageView?.layer.cornerRadius = cell.imageView!.frame.width / 2
+//                        cell.imageView?.clipsToBounds = true
+//
+//
+//                    } else {
+//                        print("Can't make the image circular")
+//                    }
+//
+//            })
+//
+//        } else {
+//            print("Can't load image from the internet")
+//        }
+        
+        cell.imageView?.image = movie.image
         cell.imageView?.contentMode = .scaleToFill
         cell.imageView?.frame.size.width = 50
         cell.imageView?.frame.size.height = 50

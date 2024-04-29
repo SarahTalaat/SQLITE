@@ -31,16 +31,16 @@ class DisplayDetailsViewController: UIViewController {
 
     
         
-        if let imageUrlString = selectedMovie?.image, let imageUrl = URL(string: imageUrlString) {
-            imageDetails.kf.indicatorType = .activity
-            imageDetails.kf.setImage(with: URL(string: imageUrlString), placeholder: UIImage(named: "loading.png"),options: [.transition(.fade(0.7))], progressBlock: nil)
-            self.imageDetails.frame.size.width = self.imageDetails.frame.size.height
-            self.imageDetails.layer.cornerRadius = self.imageDetails.frame.width / 2
-            self.imageDetails.clipsToBounds = true
-          
-        } else {
-            print("No valid image URL found")
-        }
+//        if let imageUrlString = selectedMovie?.image, let imageUrl = URL(string: imageUrlString) {
+//            imageDetails.kf.indicatorType = .activity
+//            imageDetails.kf.setImage(with: URL(string: imageUrlString), placeholder: UIImage(named: "loading.png"),options: [.transition(.fade(0.7))], progressBlock: nil)
+//            self.imageDetails.frame.size.width = self.imageDetails.frame.size.height
+//            self.imageDetails.layer.cornerRadius = self.imageDetails.frame.width / 2
+//            self.imageDetails.clipsToBounds = true
+//          
+//        } else {
+//            print("No valid image URL found")
+//        }
         
 
 

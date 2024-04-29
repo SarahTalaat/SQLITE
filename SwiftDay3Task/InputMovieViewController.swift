@@ -8,10 +8,12 @@
 import UIKit
 import SQLite3
 
-class InputMovieViewController: UIViewController  {
+class InputMovieViewController: UIViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
 
     
-
+    var selectedImage: UIImage?
+    var imageSelected: Bool = false
+    
     @IBOutlet var imageUrl: UITextField!
     @IBOutlet var ratingValue: UITextField!
     @IBOutlet var genreValue: UITextField!
@@ -36,13 +38,47 @@ class InputMovieViewController: UIViewController  {
         
     }
     
+    @IBAction func imagePickerButton(_ sender: Any) {
+        
+        let picker : UIImagePickerController = UIImagePickerController()
+        picker.delegate = self
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
+            picker.sourceType = .photoLibrary
+            self.present(picker, animated: true)
+        }else{
+            print("Can't open the photoLibrary")
+        }
+        
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else {
+            print("Unable to select image")
+            self.dismiss(animated: true)
+            return
+        }
+        
+        // Convert the image to NSData
+        guard let imageData = image.pngData() else {
+            print("Unble to convert image to NSData")
+            self.dismiss(animated: true)
+            return
+        }
+        
+        selectedImage = image
+        imageSelected = true
+        self.dismiss(animated: true)
+        
+    }
+    
+    
     @IBAction func doneButton(_ sender: Any) {
         
         var title_input = titleValue.text
         var year_input = Int(yearValue.text ?? "") // Parse as Int
         var genre_input = genreValue.text
         var rating_input = Float(ratingValue.text ?? "") // Parse as Float
-        var image_input = imageUrl.text
+        var image_input = selectedImage
         
         // Check if year is a valid integer
         guard let year = year_input else {
@@ -62,11 +98,12 @@ class InputMovieViewController: UIViewController  {
             return
         }
         
-        // Check if URL is valid
-        guard let imageUrlString = image_input, let _ = URL(string: imageUrlString) else {
-            showAlert(title: "Invalid URL", message: "Please enter a valid URL.")
+        
+        guard let selectedImage = selectedImage else {
+            showAlert(title: "Invalid Input", message: "Please select an image.")
             return
         }
+
         
         var genreArray: [String] = []
         if let genre = genre_input {
@@ -74,7 +111,7 @@ class InputMovieViewController: UIViewController  {
         }
         genreArray.joined(separator: " , ")
         
-        var dataModel: DataModel = DataModel(title: title_input ?? "", image: image_input ?? "", rating: rating, year: year, genere: genreArray)
+        var dataModel: DataModel = DataModel(title: title_input ?? "", image: selectedImage ,rating: rating, year: year, genere: genreArray)
        // delegate?.addDataModel(dataModel: dataModel)
         Database.sharedInstance().insertDataModelInDb(dataModel: dataModel)
     

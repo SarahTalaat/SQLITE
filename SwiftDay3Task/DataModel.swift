@@ -6,15 +6,16 @@
 //
 
 import Foundation
+import UIKit
 
 class DataModel{
     var title: String = ""
-    var image: String = ""
+    var image: UIImage?
     var rating: Float = 0.0
     var year: Int
     var genere: [String] = []
     
-    init(title:String,image:String,rating:Float,year:Int,genere:[String]){
+    init(title:String,image:UIImage,rating:Float,year:Int,genere:[String]){
         self.title = title
         self.image = image
         self.rating = rating

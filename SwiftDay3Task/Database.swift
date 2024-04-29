@@ -7,6 +7,7 @@
 
 import Foundation
 import SQLite3
+import UIKit
 
 class Database {
 
@@ -84,6 +85,8 @@ func createTable(db:OpaquePointer?){
     }
 }
 
+ 
+ /*
 // Function to insert a DataModel object into the FRIEND table
 func insertDataModelInDb(dataModel: DataModel) {
         // Open connection to the database
@@ -175,6 +178,87 @@ func insertDataModelInDb(dataModel: DataModel) {
         
         return dataModels
     }
+  */
+  
+    
+    // Function to insert a DataModel object into the FRIEND table
+    func insertDataModelInDb(dataModel: DataModel) {
+        guard let db = openDatabase() else {
+            print("Unable to open database")
+            return
+        }
+        
+        let insertStatementString = "INSERT INTO FRIEND (Title, Genre, Rating, Year, ImageData) VALUES (?, ?, ?, ?, ?);"
+        var insertStatement: OpaquePointer?
+        
+        if sqlite3_prepare_v2(db, insertStatementString, -1, &insertStatement, nil) == SQLITE_OK {
+            let title = dataModel.title as NSString
+            let genre = dataModel.genere.joined(separator: ", ") as NSString
+            
+            sqlite3_bind_text(insertStatement, 1, title.utf8String, -1, nil)
+            sqlite3_bind_text(insertStatement, 2, genre.utf8String, -1, nil)
+            sqlite3_bind_double(insertStatement, 3, Double(dataModel.rating))
+            sqlite3_bind_int(insertStatement, 4, Int32(dataModel.year))
+            
+            if let imageData = dataModel.image?.jpegData(compressionQuality: 1.0) as NSData? {
+                sqlite3_bind_blob(insertStatement, 5, imageData.bytes, Int32(imageData.length), nil)
+            } else {
+                print("Error converting image to data.")
+                return
+            }
+            
+            if sqlite3_step(insertStatement) == SQLITE_DONE {
+                print("DataModel inserted successfully.")
+            } else {
+                print("Failed to insert DataModel.")
+            }
+        } else {
+            print("Error preparing insert statement: \(String(cString: sqlite3_errmsg(db)))")
+        }
+        
+        sqlite3_finalize(insertStatement)
+        sqlite3_close(db)
+    }
+
+    // Function to retrieve DataModel objects from the FRIEND table
+    func retrieveDataModels() -> [DataModel] {
+        var dataModels: [DataModel] = []
+        
+        guard let db = openDatabase() else {
+            print("Unable to open database")
+            return dataModels
+        }
+        
+        let query = "SELECT * FROM FRIEND;"
+        var queryStatement: OpaquePointer?
+        
+        if sqlite3_prepare_v2(db, query, -1, &queryStatement, nil) == SQLITE_OK {
+            while sqlite3_step(queryStatement) == SQLITE_ROW {
+                let title = String(cString: sqlite3_column_text(queryStatement, 0))
+                let genre = String(cString: sqlite3_column_text(queryStatement, 1))
+                let rating = sqlite3_column_double(queryStatement, 2)
+                let year = Int(sqlite3_column_int(queryStatement, 3))
+                
+                let imageDataPointer = sqlite3_column_blob(queryStatement, 4)
+                let imageDataSize = sqlite3_column_bytes(queryStatement, 4)
+                let imageData = NSData(bytes: imageDataPointer, length: Int(imageDataSize))
+                let image = UIImage(data: imageData as Data) ?? UIImage() // default value for image
+                
+                let genresArray = genre.components(separatedBy: ", ")
+                
+                let dataModel = DataModel(title: title, image: image, rating: Float(rating), year: year, genere: genresArray)
+                dataModels.append(dataModel)
+            }
+        } else {
+            print("Error preparing query statement: \(String(cString: sqlite3_errmsg(db)))")
+        }
+        
+        sqlite3_finalize(queryStatement)
+        sqlite3_close(db)
+        
+        return dataModels
+    }
+
 
     func deleteDataModelFromDb(title: String) {
         // Open connection to the database
@@ -209,6 +293,10 @@ func insertDataModelInDb(dataModel: DataModel) {
         sqlite3_close(db)
     }
 
+    
+    
+    
+    
     // Function to check if a title already exists in the FRIEND table
     func checkTitleExists_PK(title: String) -> Bool {
         // Open connection to the database
