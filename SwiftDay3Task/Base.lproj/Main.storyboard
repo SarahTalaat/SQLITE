@@ -266,11 +266,6 @@
             <point key="canvasLocation" x="1773.913043478261" y="-265.17857142857144"/>
         </scene>
     </scenes>
-    <designables>
-        <designable name="mwN-BQ-85Q">
-            <size key="intrinsicContentSize" width="120" height="20"/>
-        </designable>
-    </designables>
     <resources>
         <image name="plus" catalog="system" width="128" height="113"/>
         <systemColor name="systemBackgroundColor">
