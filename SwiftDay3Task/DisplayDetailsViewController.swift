@@ -24,7 +24,7 @@ class DisplayDetailsViewController: UIViewController {
         genereValue.text = selectedMovie?.genere.joined(separator: " , ")
         yearValue.text = String(selectedMovie?.year ?? 0)
         titleValue.text = selectedMovie?.title
-    //    imageDetails.sd_setImage(with: URL(string: selectedMovie?.image ?? ""), placeholderImage: UIImage(named: "loading.png"))
+
         ratingView.rating = Double(selectedMovie?.rating ?? 0)
         ratingView.settings.fillMode = .full
         ratingView.isUserInteractionEnabled = false
@@ -33,16 +33,7 @@ class DisplayDetailsViewController: UIViewController {
         self.imageDetails.layer.cornerRadius = self.imageDetails.frame.width / 2
         self.imageDetails.clipsToBounds = true
         
-//        if let imageUrlString = selectedMovie?.image, let imageUrl = URL(string: imageUrlString) {
-//            imageDetails.kf.indicatorType = .activity
-//            imageDetails.kf.setImage(with: URL(string: imageUrlString), placeholder: UIImage(named: "loading.png"),options: [.transition(.fade(0.7))], progressBlock: nil)
-//            self.imageDetails.frame.size.width = self.imageDetails.frame.size.height
-//            self.imageDetails.layer.cornerRadius = self.imageDetails.frame.width / 2
-//            self.imageDetails.clipsToBounds = true
-//          
-//        } else {
-//            print("No valid image URL found")
-//        }
+
         
 
 
