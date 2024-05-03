@@ -1,0 +1,26 @@
+PODS:
+  - Cosmos (25.0.0)
+  - Kingfisher (4.10.1)
+  - SDWebImage (5.19.1):
+    - SDWebImage/Core (= 5.19.1)
+  - SDWebImage/Core (5.19.1)
+
+DEPENDENCIES:
+  - Cosmos
+  - Kingfisher
+  - SDWebImage
+
+SPEC REPOS:
+  trunk:
+    - Cosmos
+    - Kingfisher
+    - SDWebImage
+
+SPEC CHECKSUMS:
+  Cosmos: f1eac42a1a6480b35cf5226d70bd0fadc004b4aa
+  Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
+  SDWebImage: 40b0b4053e36c660a764958bff99eed16610acbb
+
+PODFILE CHECKSUM: 1e5d5db0b70566c5ee2312c2a70c70a20782715d
+
+COCOAPODS: 1.11.3
