@@ -1,0 +1,6 @@
+framework module Pods_SwiftDay3Task_SwiftDay3TaskUITests {
+  umbrella header "Pods-SwiftDay3Task-SwiftDay3TaskUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
